@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchCreateTodo } from '../features/todo/todoSlice'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Task() {
+    const dispatch = useDispatch()
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [priority, setPriority] = useState("")
+
+    const handleOnClick = () => {
+        const newBody = {
+            title: title,
+            description: description,
+            priority: priority
+        }
+        dispatch(fetchCreateTodo(newBody))
+    }
+
     return (
         <div className='App'>
 
@@ -11,30 +27,26 @@ function Task() {
             <div className="form">
                 <div className="form-group">
                     <label>Title</label>
-                    <input className='form-control' type="text" />
+                    <input value={ title } onChange={ e => setTitle(e.target.value) } className='form-control' type="text" />
                 </div>
 
                 <div className="form-group">
                     <label>Description</label>
-                    <input className='form-control' type="text" />
+                    <input value={ description } onChange={ e => setDescription(e.target.value) } className='form-control' type="text" />
                 </div>
 
                 <div className="form-group">
                     <label>Priority</label>
-                    <select>
+                    <select onChange={ e => setPriority(e.target.value) }>
+                        <option value=""></option>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
                         <option value="Critical">Critical</option>
                     </select>
-                </div>
-
-                <div className="form-group">
-                    <label>Complete</label>
-                    <input type="checkbox" name="" />
                 </div><br/>
 
-                <button className='btn btn-primary'>Submit</button>
+                <button onClick={ handleOnClick } className='btn btn-primary'>Submit</button>
             </div>
         
         </div>
