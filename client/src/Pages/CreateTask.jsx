@@ -4,7 +4,7 @@ import { fetchCreateTodo } from '../features/todo/todoSlice'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function Task() {
+function CreateTask() {
     const dispatch = useDispatch()
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -28,12 +28,12 @@ function Task() {
                 <div className="form-group">
                     <label>Title</label>
                     <input value={ title } onChange={ e => setTitle(e.target.value) } className='form-control' type="text" />
-                </div>
+                </div><br/>
 
                 <div className="form-group">
                     <label>Description</label>
                     <input value={ description } onChange={ e => setDescription(e.target.value) } className='form-control' type="text" />
-                </div>
+                </div><br/>
 
                 <div className="form-group">
                     <label>Priority</label>
@@ -53,4 +53,4 @@ function Task() {
     )
 }
 
-export default Task
+export default CreateTask

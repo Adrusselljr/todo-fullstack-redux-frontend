@@ -14,7 +14,6 @@ export const fetchOneTodo = createAsyncThunk("todo/fetchOneTodo", async id => {
 })
 
 export const fetchCreateTodo = createAsyncThunk("todo/createTodo", async createBody => {
-    console.log(createBody)
     const response = await fetch(`${URL}create-todo`, {
         method: "POST",
         headers: {
@@ -27,14 +26,21 @@ export const fetchCreateTodo = createAsyncThunk("todo/createTodo", async createB
 })
 
 export const selectTodosList = state => state.todo.todosList
-export const selectOneTodo = state => state.oneTodo
+export const selectOneTodo = state => state.todo.oneTodo
+export const selectedId = state => state.todo.selectedId
 
 export const todoSlice = createSlice({
     name: "todo",
     initialState: {
         todosList: [],
         todoCreated: {},
-        oneTodo: {}
+        oneTodo: {},
+        selectedId: ""
+    },
+    reducers: {
+        savedId: (state, action) => {
+            state.selectedId = action.payload
+        }
     },
     extraReducers: builder => {
         builder.addCase(fetchTodosList.fulfilled, (state, action) => {
@@ -44,9 +50,11 @@ export const todoSlice = createSlice({
             state.todoCreated = action.payload
         })
         builder.addCase(fetchOneTodo.fulfilled, (state, action) => {
-            state.oneTodo = action.payload
+            state.oneTodo = action.payload.payload
         })
     }
 })
+
+export const  { savedId } = todoSlice.actions
 
 export default todoSlice.reducer

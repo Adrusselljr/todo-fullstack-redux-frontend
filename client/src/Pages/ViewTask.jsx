@@ -3,7 +3,7 @@ import TodoView from '../features/todo/TodoView'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function View() {
+function ViewTask() {
     return (
         <div className='App'>
 
@@ -13,4 +13,4 @@ function View() {
     )
 }
 
-export default View
+export default ViewTask
