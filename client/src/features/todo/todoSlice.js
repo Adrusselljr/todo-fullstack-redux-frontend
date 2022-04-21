@@ -25,6 +25,18 @@ export const fetchCreateTodo = createAsyncThunk("todo/createTodo", async createB
     return postResponse
 })
 
+export const fetchUpdateTodo = createAsyncThunk("todo/updateTodo", async (id, createBody) => {
+    const response = await fetch(`${URL}update-todo/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(createBody)
+    })
+    const postResponse = response.json()
+    return postResponse
+})
+
 export const selectTodosList = state => state.todo.todosList
 export const selectOneTodo = state => state.todo.oneTodo
 export const selectedId = state => state.todo.selectedId
@@ -51,6 +63,9 @@ export const todoSlice = createSlice({
         })
         builder.addCase(fetchOneTodo.fulfilled, (state, action) => {
             state.oneTodo = action.payload.payload
+        })
+        builder.addCase(fetchUpdateTodo.fulfilled, (state, action) => {
+            state.todoCreated = action.payload
         })
     }
 })
